@@ -63,7 +63,7 @@ for(i in 1:dim(dat)[2]) { #i will be each isolate
   outpt.BLUP <- cbind(outpt.BLUP, Pheno.BLUP.result$u)
   outpt.HEM <- cbind(outpt.HEM, Pheno.HEM.result$u)
   
-  #Permute Thresholds for Phenos - this is what takes forever
+  #Permute Thresholds for Phenos
   perm.u.BLUP <- vector()
   perm.u.HEM <- vector()
   for(p in 1:1000) {  
@@ -96,7 +96,7 @@ for(j in 1:length(thresh.HEM)) {
   names(thresh.HEM[[j]]) <- colnames(dat)
 }
 
-#RF-give row names to thresh.HEM and thresh.BLUP so that threshhold values will line up correctly with phenotypes, and you can see which threshold value is displayed
+#RF-give row names to thresh.HEM and thresh.BLUP so that threshhold values will line up correctly with phenotypes, and you can see which threshhol value is displayed
 thresh.BLUP$"0.95Thresh" <- c("0.95 Thresh", thresh.BLUP$"0.95Thresh")
 thresh.BLUP$"0.975Thresh" <- c("0.975 Thresh", thresh.BLUP$"0.975Thresh")
 thresh.BLUP$"0.99Thresh" <- c("0.99 Thresh", thresh.BLUP$"0.99Thresh")
@@ -136,7 +136,7 @@ write.csv(rbind(thresh.HEM$"0.99Thresh",sig.HEM),"LesionEccentricityPoisson.HEM.
 
 
 
-#RF the code below generates plots comparing .BLUP and .HEM methods - not necessary
+
 
 split.screen(c(1, 2))
 split.screen(c(2, 1), screen = 1)
@@ -160,7 +160,7 @@ library(grid)
 
 #Import data
 HEM.plotdata <- read.csv("LesionEccentricityPoisson.HEM.PlottingFormat.csv")#RF-this is just a reorganized file of LesionSize.HEM.csv.
-#RF-Basically it has two columns containing Chrom and pos separately instead of just one column with eg "III.57894". This is easiest to do with code below:
+#RF-Basically it has two columns containing Chrom and pos separately instead of just one. This is easiest to do with
 #library(tidyr)
 #separate(old data, V1, into = c("Chrom", "Pos"))
 #but tidyr requires a more recent version of R to run, so you must take the file to a different comp to do this
@@ -172,7 +172,7 @@ HEM.plotdata$Pos <- as.character(HEM.plotdata$Pos)#ensure that position data is 
 
 
 #get threshhold values from HEM file
-HEM.thresh <- read.csv("LesionGrn.mm.2.HEM.csv")#RF-this is just a reorganized file of LesionSize.HEM.csv.
+HEM.thresh <- read.csv("LesionEccentricityPoisson.HEM.csv")#RF-this is just a reorganized file of LesionSize.HEM.csv.
 TH99 <- HEM.thresh[3,]
 TH99_Apple517 <- as.numeric(TH99[3])
 TH99_B05.10 <- as.numeric(TH99[4])
